@@ -24,8 +24,8 @@ const styles = new StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ sales }) => {
-  return { sales };
+const mapStateToProps = state => {
+  return { state };
 };
 
 export default connect(
