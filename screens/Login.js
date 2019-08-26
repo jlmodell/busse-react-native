@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Button, TextInput, Text, StyleSheet, View } from "react-native";
+import {
+  Button,
+  Text,
+  StyleSheet,
+  View,
+  Keyboard,
+  TouchableWithoutFeedback
+} from "react-native";
 
 import { login } from "../store/actions";
 
 import Input from "../components/Input";
 
 const Login = props => {
+  console.log(props);
+
   const [state, setState] = useState({
-    email: "",
-    password: ""
+    email: "modell.jeff@me.com",
+    password: "secret",
+    token: null
   });
 
   const handleChange = (name, value) => {
@@ -19,65 +29,79 @@ const Login = props => {
     }));
   };
 
-  let user = {};
-
-  const HandleSubmit = () => {
-    user = {
+  const HandleSubmit = async () => {
+    let user = {
       email: state.email,
       password: state.password
     };
 
-    props.login(user);
+    await props.login(user);
 
     setState(prevState => ({
       ...prevState,
-      password: null
+      password: null,
+      token: props.state.user.token
     }));
+
+    props.navigation.replace("Sales");
   };
 
   return (
-    <View style={styles.loginContainer}>
-      <View>
-        <Text>Email Address</Text>
-        <Input
-          name="email"
-          style={styles.input}
-          value={state.email}
-          keyboardType="email-address"
-          placeholder="you@abc.com"
-          onChangeText={input => handleChange("email", input)}
-        />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.screen}>
+        <View style={styles.loginContainer}>
+          <View style={styles.input}>
+            <Text style={styles.label}>Email Address</Text>
+            <Input
+              name="email"
+              style={styles.input}
+              value={state.email}
+              keyboardType="email-address"
+              placeholder="you@abc.com"
+              onChangeText={input => handleChange("email", input)}
+            />
+          </View>
+          <View style={styles.input}>
+            <Text style={styles.label}>Password</Text>
+            <Input
+              name="password"
+              secureTextEntry
+              style={styles.input}
+              value={state.password}
+              placeholder="password"
+              onChangeText={input => handleChange("password", input)}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Login" onPress={HandleSubmit} />
+            <Button title="Register" color="red" onPress={() => {}} />
+          </View>
+        </View>
       </View>
-      <View>
-        <Text>Password</Text>
-        <Input
-          name="password"
-          secureTextEntry
-          style={styles.input}
-          value={state.password}
-          placeholder="password"
-          onChangeText={input => handleChange("password", input)}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={HandleSubmit} />
-        <Button title="Register" color="red" onPress={() => {}} />
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = new StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
   loginContainer: {
-    width: "80%"
+    maxWidth: "80%",
+    width: 300
+  },
+  label: {
+    fontWeight: "700"
   },
   input: {
     paddingVertical: 10
   },
   buttonContainer: {
-    marginVertical: 10,
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    marginVertical: 10
   }
 });
 

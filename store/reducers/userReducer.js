@@ -4,7 +4,7 @@ export const LOGOUT = "LOGOUT";
 export const TOKEN_DETAILS = "TOKEN_DETAILS";
 
 const initialState = {
-  token: null,
+  token: "login to get a token",
   tokenDetails: {
     createdAt: null,
     expiresAt: null
@@ -16,14 +16,14 @@ export const userReducer = async (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        token: action.payload.token || state.token
+        token: action.payload.token
       };
     case TOKEN_DETAILS:
       return {
         ...state,
         tokenDetails: {
-          createdAt: action.payload.createdAt || state.tokenDetails.createdAt,
-          expiresAt: action.payload.expiresAt || state.tokenDetails.expiresAt
+          createdAt: action.payload.createdAt,
+          expiresAt: action.payload.expiresAt
         }
       };
     case LOGOUT:

@@ -1,34 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard
-} from "react-native";
 
-import Login from "./screens/Login";
+import MealsNavigator from "./navigation/MainNavigator";
 
 const App = () => {
-  return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <View style={styles.container}>
-        <Login />
-      </View>
-    </TouchableWithoutFeedback>
-  );
+  return <MealsNavigator />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
 
 export default App;
