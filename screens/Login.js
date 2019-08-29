@@ -14,12 +14,9 @@ import { login } from "../store/actions";
 import Input from "../components/Input";
 
 const Login = props => {
-  console.log(props);
-
   const [state, setState] = useState({
     email: "modell.jeff@me.com",
-    password: "secret",
-    token: null
+    password: "secret"
   });
 
   const handleChange = (name, value) => {
@@ -39,8 +36,7 @@ const Login = props => {
 
     setState(prevState => ({
       ...prevState,
-      password: null,
-      token: props.state.user.token
+      password: null
     }));
 
     props.navigation.replace("Sales");
@@ -50,7 +46,7 @@ const Login = props => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
         <View style={styles.loginContainer}>
-          <View style={styles.input}>
+          <View style={{ marginVertical: 10 }}>
             <Text style={styles.label}>Email Address</Text>
             <Input
               name="email"
@@ -61,7 +57,7 @@ const Login = props => {
               onChangeText={input => handleChange("email", input)}
             />
           </View>
-          <View style={styles.input}>
+          <View style={{ marginVertical: 10 }}>
             <Text style={styles.label}>Password</Text>
             <Input
               name="password"

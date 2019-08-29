@@ -1,9 +1,9 @@
 import React from "react";
 
-import MealsNavigator from "./navigation/MainNavigator";
+import MainNavigator from "./navigation/MainNavigator";
 
 const App = () => {
-  return <MealsNavigator />;
+  return <MainNavigator />;
 };
 
 export default App;
